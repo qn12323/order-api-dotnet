@@ -1,4 +1,4 @@
-﻿namespace Domain.Messages
+﻿namespace Domain.Definitions.Messages
 {
     public static class CommonMessage
     {

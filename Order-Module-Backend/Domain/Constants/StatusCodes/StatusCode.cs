@@ -1,4 +1,4 @@
-﻿namespace Domain.StatusCodes
+﻿namespace Domain.Constants.StatusCodes
 {
     public static class StatusCode
     {

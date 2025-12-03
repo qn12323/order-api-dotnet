@@ -1,4 +1,4 @@
-﻿namespace Domain.Methods
+﻿namespace Domain.Definitions.Methods
 {
     public static class GenerateOrderCode
     {

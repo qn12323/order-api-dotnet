@@ -1,4 +1,4 @@
-﻿namespace Domain.Results
+﻿namespace Domain.Definitions.Results
 {
     public class Response<T>
     {
