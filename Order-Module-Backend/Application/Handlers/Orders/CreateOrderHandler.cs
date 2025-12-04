@@ -62,7 +62,7 @@ namespace Application.Handlers.Orders
                 UserId = request.UserId,
                 OrderStatus = OrderStatus.Pending.ToString(),
                 TotalAmount = totalAmount,
-                PaymentStatus = request.PaymentStatus,
+                PaymentStatus = PaymentStatus.Unpaid.ToString(),
                 ShippingAddress = request.ShippingAddress,
                 CreatedAt = DateTime.UtcNow,
                 Items = items

@@ -36,6 +36,11 @@ namespace Application.Handlers.Orders
                 );
             }
 
+            if (orders.Count == 0)
+            {
+                return Response<List<Order>>.Create(StatusCode.NotFound, CommonMessage.NoDataFound);
+            }
+
             return Response<List<Order>>.Create(StatusCode.Ok, string.Format(CommonMessage.GetSuccess, ""), orders);
         }
     }

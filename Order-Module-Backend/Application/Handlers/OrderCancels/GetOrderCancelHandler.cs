@@ -38,6 +38,11 @@ namespace Application.Handlers.OrderCancels
                 );
             }
 
+            if (orderCancels.Count == 0)
+            {
+                return Response<List<OrderCancellation>>.Create(StatusCode.NotFound, CommonMessage.NoDataFound);
+            }
+
             return Response<List<OrderCancellation>>.Create(StatusCode.Ok, string.Format(CommonMessage.GetSuccess, ""), orderCancels);
         }
     }
