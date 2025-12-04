@@ -18,9 +18,11 @@ namespace Application.Handlers.OrderReturns
         }
         public async Task<Response<List<OrderReturn>>> Handle(GetOrderReturnRequest request, CancellationToken cancellationToken)
         {
-            if(request.UserId != null)
+            var orderReturns = new List<OrderReturn>();
+
+            if (request.UserId != null)
             {
-                var orderReturns = (List<OrderReturn>)await _orderReturnRepo.GetAsync(
+                orderReturns = (List<OrderReturn>)await _orderReturnRepo.GetAsync(
                     predicate: o => o.Order.User.Id == request.UserId,
                     include: q => q.Include(o => o.Order)
                                    .Include(o => o.Order.User)
@@ -29,7 +31,7 @@ namespace Application.Handlers.OrderReturns
             }
             else
             {
-                var orderReturns = (List<OrderReturn>)await _orderReturnRepo.GetAsync(
+                orderReturns = (List<OrderReturn>)await _orderReturnRepo.GetAsync(
                     include: q => q.Include(o => o.Order)
                                    .Include(o => o.Order.User)
                                    .Include(o => o.Order.Items)
