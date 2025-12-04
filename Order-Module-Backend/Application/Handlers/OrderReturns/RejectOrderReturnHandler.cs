@@ -26,6 +26,7 @@ namespace Application.Handlers.OrderReturns
                 return Response<object>.Create(StatusCode.NotFound, string.Format(CommonMessage.NotFound, ""));
 
             orderReturn.Status = OrderReturnStatus.Rejected.ToString();
+            orderReturn.UpdatedAt = DateTime.UtcNow;
             await _orderReturnRepo.Update(orderReturn);
 
             return Response<object>.Create(StatusCode.Ok, string.Format(CommonMessage.UpdateSuccess, ""));

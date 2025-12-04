@@ -23,6 +23,7 @@ namespace Application.Handlers.Orders
                 return Response<object>.Create(StatusCode.NotFound, string.Format(CommonMessage.NotFound, ""));
 
             order.OrderStatus = OrderStatus.Completed.ToString();
+            order.UpdatedAt = DateTime.UtcNow;
             await _orderRepo.Update(order);
 
             return Response<object>.Create(StatusCode.Ok, string.Format(CommonMessage.UpdateSuccess, ""));

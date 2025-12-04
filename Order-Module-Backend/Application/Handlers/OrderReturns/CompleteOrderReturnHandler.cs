@@ -33,6 +33,7 @@ namespace Application.Handlers.OrderReturns
             orderReturn.Status = OrderReturnStatus.Completed.ToString();
 
             order.OrderStatus = OrderStatus.Returned.ToString();
+            orderReturn.UpdatedAt = DateTime.UtcNow;
 
             await _orderReturnRepo.Update(orderReturn);
             await _orderRepo.Update(order);

@@ -2,6 +2,7 @@
 using Domain.Constants.Status;
 using Domain.Definitions.Messages;
 using Domain.Definitions.Results;
+using Domain.Entities;
 using Domain.Interfaces;
 using MediatR;
 
@@ -26,6 +27,7 @@ namespace Application.Handlers.OrderReturns
                 return Response<object>.Create(StatusCode.NotFound, string.Format(CommonMessage.NotFound, ""));
 
             orderReturn.Status = OrderReturnStatus.Approved.ToString();
+            orderReturn.UpdatedAt = DateTime.UtcNow;
             await _orderReturnRepo.Update(orderReturn);
 
             return Response<object>.Create(StatusCode.Ok, string.Format(CommonMessage.UpdateSuccess, ""));
