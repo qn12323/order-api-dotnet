@@ -25,7 +25,7 @@ namespace Application.Handlers.Orders
             order.OrderStatus = OrderStatus.Approved.ToString();
             await _orderRepo.Update(order);
 
-            return Response<object>.Create(StatusCode.Ok, string.Format(CommonMessage.UpdateSuccess, ""));
+            return Response<object>.Create(StatusCode.Ok, string.Format(CommonMessage.UpdateSuccess,""));
         }
     }
 }
