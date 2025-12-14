@@ -17,6 +17,7 @@ namespace Infrastructure.Configurations
             builder.Property(x => x.PhoneNumber).HasColumnName("phone_number").HasColumnType("nvarchar(20)");
             builder.Property(x => x.FullName).HasColumnName("full_name").HasColumnType("nvarchar(100)");
             builder.Property(x => x.IsActived).HasColumnName("is_active").HasColumnType("bit");
+            builder.Property(x => x.Token).HasColumnName("token").HasColumnType("nvarchar(255)");
             builder.Property(x => x.CreatedAd).HasColumnName("created_at").HasColumnType("datetime");
 
             builder.ToTable("User");
