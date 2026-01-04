@@ -1,5 +1,7 @@
-﻿using Domain.Interfaces;
+﻿using Application.Services.Auth;
+using Domain.Interfaces;
 using Infrastructure.Repositories;
+using Infrastructure.Services;
 using Infrastructure.Sql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +34,9 @@ namespace Infrastructure.Extensions
             services.AddScoped<IPaymentRepo, PaymentRepo>();
             services.AddScoped<IProductRepo, ProductRepo>();
             services.AddScoped<IUserRepo, UserRepo>();
+
+            services.AddHttpContextAccessor();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
 
             return services;
         }
