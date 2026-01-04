@@ -1,19 +1,23 @@
 ﻿using Domain.Interfaces;
 using Infrastructure.Repositories;
 using Infrastructure.Sql;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 
 namespace Infrastructure.Extensions
 {
     public static class ServiceCollection
     {
-        public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
             string? connectionString = configuration.GetConnectionString("OrderSystemDB");
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
             services.RegisterServices();
+            services.AddSwaggerServices();
+            services.AddCorsServices();
             return services;
         }
 
@@ -31,5 +35,74 @@ namespace Infrastructure.Extensions
 
             return services;
         }
+
+        private static IServiceCollection AddSwaggerServices(this IServiceCollection services)
+        {
+            services.AddEndpointsApiExplorer();
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Demo order module",
+                    Version = "v1",
+                    Description = "Order System API"
+                });
+
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "Enter JWT token: Bearer {token}"
+                });
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        Array.Empty<string>()
+                    }
+                });
+            });
+
+            return services;
+        }
+
+        public static IApplicationBuilder UseSwagger(this IApplicationBuilder app)
+        {
+            SwaggerBuilderExtensions.UseSwagger(app);
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Demo order module v1");
+            });
+
+            return app;
+        }
+
+        private static IServiceCollection AddCorsServices(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    policyBuilder => policyBuilder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+
+            return services;
+        }
+
     }
 }
