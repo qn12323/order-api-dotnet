@@ -3,11 +3,14 @@ using Domain.Interfaces;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Infrastructure.Sql;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 namespace Infrastructure.Extensions
 {
@@ -18,6 +21,7 @@ namespace Infrastructure.Extensions
             string? connectionString = configuration.GetConnectionString("OrderSystemDB");
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
             services.RegisterServices();
+            services.AddAuthenticationServices(configuration);
             services.AddSwaggerServices();
             services.AddCorsServices();
             return services;
@@ -37,6 +41,42 @@ namespace Infrastructure.Extensions
 
             services.AddHttpContextAccessor();
             services.AddScoped<ICurrentUserService, CurrentUserService>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddAuthenticationServices(this IServiceCollection services, IConfiguration configuration)
+        {
+            var jwtSettings = configuration.GetSection("JwtSettings");
+            var secretKey = jwtSettings["SecretKey"];
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = true;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+
+                    ValidIssuer = jwtSettings["Issuer"],
+                    ValidAudience = jwtSettings["Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(secretKey!)
+                    ),
+
+                    ClockSkew = TimeSpan.Zero // tránh delay hết hạn token
+                };
+            });
+
+            services.AddAuthorization();
 
             return services;
         }
