@@ -1,7 +1,9 @@
 ﻿using Application.Services.Auth;
+using Application.Services.Security;
 using Domain.Interfaces;
 using Infrastructure.Repositories;
 using Infrastructure.Services.Auth;
+using Infrastructure.Services.Security;
 using Infrastructure.Sql;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -42,6 +44,8 @@ namespace Infrastructure.Extensions
             services.AddHttpContextAccessor();
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddScoped<IPasswordService, PasswordService>();
+            services.AddScoped<IRefreshTokenHasher, RefreshTokenHasher>();
 
             return services;
         }
