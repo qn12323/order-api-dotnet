@@ -12,6 +12,7 @@ namespace Infrastructure.Configurations
 
             builder.Property(x => x.Id).HasColumnName("role_id").HasColumnType("int");
             builder.Property(x => x.RoleName).HasColumnName("role_name").HasColumnType("nvarchar(50)");
+            builder.Property(x => x.IsActived).HasColumnName("is_active").HasColumnType("bit");
 
             builder.ToTable("Role");
         }

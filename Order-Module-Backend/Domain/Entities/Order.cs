@@ -2,7 +2,7 @@
 {
     public class Order : BaseEntity<string>
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public string OrderStatus { get; set; }
         public decimal TotalAmount { get; set; }
         public string PaymentStatus { get; set; }

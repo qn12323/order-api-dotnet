@@ -2,7 +2,7 @@
 
 namespace Domain.Interfaces
 {
-    public interface IUserRepo : IGenericRepo<User, int>
+    public interface IUserRepo : IGenericRepo<User, Guid>
     {
     }
 }

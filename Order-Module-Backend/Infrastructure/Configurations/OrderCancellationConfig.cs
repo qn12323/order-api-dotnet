@@ -14,7 +14,7 @@ namespace Infrastructure.Configurations
             builder.Property(x => x.CancelledBy).HasColumnName("cancelled_by").HasColumnType("int");
             builder.Property(x => x.OrderId).HasColumnName("order_id").HasColumnType("nvarchar(20)");
             builder.Property(x => x.Reason).HasColumnName("reason").HasColumnType("nvarchar(500)");
-            builder.Property(x => x.CancelledAt).HasColumnName("cancelled_at").HasColumnType("datetime");
+            builder.Property(x => x.CancelledAt).HasColumnName("cancelled_at").HasColumnType("datetime2");
 
             builder.HasOne(pv => pv.Order)
                 .WithMany()

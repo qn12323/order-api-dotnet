@@ -15,7 +15,7 @@ namespace Infrastructure.Configurations
             builder.Property(x => x.PaymentMethod).HasColumnName("payment_method").HasColumnType("nvarchar(50)");
             builder.Property(x => x.Amount).HasColumnName("amount").HasColumnType("decimal(18,2)");
             builder.Property(x => x.PaymentStatus).HasColumnName("payment_status").HasColumnType("nvarchar(50)");
-            builder.Property(x => x.PaidAt).HasColumnName("paid_at").HasColumnType("datetime");
+            builder.Property(x => x.PaidAt).HasColumnName("paid_at").HasColumnType("datetime2");
 
             builder.HasOne(pv => pv.Order)
                 .WithMany()

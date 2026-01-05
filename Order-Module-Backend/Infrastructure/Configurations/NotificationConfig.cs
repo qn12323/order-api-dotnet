@@ -11,11 +11,11 @@ namespace Infrastructure.Configurations
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id).HasColumnName("notification_id").HasColumnType("int");
-            builder.Property(x => x.UserId).HasColumnName("user_id").HasColumnType("int");
+            builder.Property(x => x.UserId).HasColumnName("user_id").HasColumnType("UNIQUEIDENTIFIER");
             builder.Property(x => x.OrderId).HasColumnName("order_id").HasColumnType("nvarchar(20)");
             builder.Property(x => x.Message).HasColumnName("message").HasColumnType("nvarchar(500)");
             builder.Property(x => x.IsRead).HasColumnName("is_read").HasColumnType("bit");
-            builder.Property(x => x.CreatedAt).HasColumnName("created_at").HasColumnType("datetime");
+            builder.Property(x => x.CreatedAt).HasColumnName("created_at").HasColumnType("datetime2");
 
             // get order and user
 

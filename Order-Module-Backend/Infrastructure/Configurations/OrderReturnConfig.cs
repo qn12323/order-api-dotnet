@@ -14,8 +14,8 @@ namespace Infrastructure.Configurations
             builder.Property(x => x.Reason).HasColumnName("reason").HasColumnType("nvarchar(500)");
             builder.Property(x => x.OrderId).HasColumnName("order_id").HasColumnType("nvarchar(20)");
             builder.Property(x => x.Status).HasColumnName("status").HasColumnType("nvarchar(50)");
-            builder.Property(x => x.UpdatedAt).HasColumnName("updated_at").HasColumnType("datetime");
-            builder.Property(x => x.CreatedAt).HasColumnName("created_at").HasColumnType("datetime");
+            builder.Property(x => x.UpdatedAt).HasColumnName("updated_at").HasColumnType("datetime2");
+            builder.Property(x => x.CreatedAt).HasColumnName("created_at").HasColumnType("datetime2");
 
             builder.HasOne(pv => pv.Order)
                 .WithMany()

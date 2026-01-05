@@ -16,7 +16,7 @@ namespace Infrastructure.Configurations
             builder.Property(x => x.QuantityStock).HasColumnName("quantity_in_stock").HasColumnType("int");
             builder.Property(x => x.Description).HasColumnName("description").HasColumnType("nvarchar(500)");
             builder.Property(x => x.IsActived).HasColumnName("is_active").HasColumnType("bit");
-            builder.Property(x => x.CreatedAt).HasColumnName("created_at").HasColumnType("datetime");
+            builder.Property(x => x.CreatedAt).HasColumnName("created_at").HasColumnType("datetime2");
 
             builder.ToTable("Product");
         }

@@ -11,7 +11,7 @@ namespace Infrastructure.Configurations
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id).HasColumnName("user_role_id").HasColumnType("int");
-            builder.Property(x => x.UserId).HasColumnName("user_id").HasColumnType("int");
+            builder.Property(x => x.UserId).HasColumnName("user_id").HasColumnType("UNIQUEIDENTIFIER");
             builder.Property(x => x.RoleId).HasColumnName("role_id").HasColumnType("int");
 
             builder.ToTable("UserRole");
