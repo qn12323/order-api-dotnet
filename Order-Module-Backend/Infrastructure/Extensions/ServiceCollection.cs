@@ -1,7 +1,7 @@
 ﻿using Application.Services.Auth;
 using Domain.Interfaces;
 using Infrastructure.Repositories;
-using Infrastructure.Services;
+using Infrastructure.Services.Auth;
 using Infrastructure.Sql;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -40,6 +40,7 @@ namespace Infrastructure.Extensions
             services.AddScoped<IUserRepo, UserRepo>();
 
             services.AddHttpContextAccessor();
+            services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<ICurrentUserService, CurrentUserService>();
 
             return services;

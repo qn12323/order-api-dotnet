@@ -11,15 +11,8 @@ namespace Application.Extensions
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-            services.RegisterServices(configuration);
             return services;
         }
 
-        private static IServiceCollection RegisterServices(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddScoped<IJwtService, JwtService>();
-
-            return services;
-        }
     }
 }
