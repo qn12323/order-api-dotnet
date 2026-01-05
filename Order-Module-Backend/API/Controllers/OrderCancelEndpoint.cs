@@ -41,7 +41,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{userId}/users")]
-        public async Task<ActionResult<object>> GetByUserId(int userId)
+        public async Task<ActionResult<object>> GetByUserId(Guid userId)
         {
             var request = new GetOrderCancelRequest()
             {
